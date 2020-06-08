@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>主页</title>
+</head>
+<body onload="checkCookie()">
+
+<form action="/users/query" method="get">
+    <button type="submit">查询全部学生</button>
+</form>
+
+<form action="/users/querystudent" method="get">
+    <input type="text" id="name3" name="name" placeholder="请输入查询姓名">
+    <button type="submit">查询学生</button>
+</form>
+
+<form action="/users/insert" method="get">
+    <input type="text" id="name" name="name" placeholder="请输入插入姓名">
+    <input type="text" id="studentnumber" name="studentnumber" placeholder="请输入学号">
+    <button type="submit">插入学生</button>
+</form>
+
+<form action="/users/update" method="get">
+    <input type="text" id="id1" name="id" placeholder="请输入id">
+    <input type="text" id="name1" name="name" placeholder="请输入姓名">
+    <input type="text" id="studentnumber1" name="studentnumber" placeholder="请输入学号">
+    <button type="submit">更改学生</button>
+</form>
+
+<form action="/users/delete" method="get">
+    <input type="text" id="id2" name="id" placeholder="请输入删除学生id">
+    <button type="submit">删除学生</button>
+</form>
+
+
+</body>
+<!-- jQuery -->
+<script src="plugins/jquery/jquery.min.js"></script>
+<!-- sweet alert -->
+<script src="plugins/sweetalert/sweetalert.min.js"></script>
+<script src="dist/js/public.js"></script>
+</html>
