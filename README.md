@@ -9,4 +9,4 @@
          
 <p>注意：请在resources目录下的application.properties修改数据库配置，换成自己数据库配置即可</p>
 
-<p>学生信息默认三个字段，id,姓名，学号</p>
+<p>学生信息默认三个字段，id,姓名,学号</p>
