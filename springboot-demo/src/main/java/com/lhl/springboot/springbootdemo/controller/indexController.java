@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import javax.servlet.http.HttpSession;
 
 @Controller
-public class indexController {
+public class IndexController {
 
     @GetMapping("/")
     public String online(HttpSession session){
