@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import javax.servlet.http.HttpSession;
 
 import javax.annotation.Resource;
 
@@ -61,6 +61,7 @@ public class AdminController{
         String token = checkToken+"";
         if(res.getToken().indexOf(token) != -1){
             return 1;
+
         }else{
             return 2;
         }

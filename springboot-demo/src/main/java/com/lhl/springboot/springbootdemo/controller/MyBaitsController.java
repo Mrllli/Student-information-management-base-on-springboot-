@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
 
 import javax.servlet.http.HttpSession;
 
@@ -22,7 +23,7 @@ public class MyBaitsController {
     UserDao userDao;
 
     @GetMapping("/count")
-    public String online(HttpSession session){
+    public String onlineNum(HttpSession session){
 
         return "有这么多人在线：" + MyListener.count + "人";
     }
@@ -70,7 +71,6 @@ public class MyBaitsController {
     public boolean insert(Integer id) {
         return userDao.deleteUser(id) > 0;
     }
-
 
 
 }
