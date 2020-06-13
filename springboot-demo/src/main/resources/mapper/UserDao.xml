@@ -16,6 +16,10 @@
         select id,name,studentnumber from tb_students where name=#{name}
     </select>
 
+    <select id="findStudentThroughStudentNumber" parameterType="com.lhl.springboot.springbootdemo.entity.User" resultMap="UserResult">
+        select name from tb_students where studentnumber=#{studentnumber}
+    </select>
+
     <insert id="insertUser" parameterType="com.lhl.springboot.springbootdemo.entity.User">
         insert into tb_students(name,studentnumber) values(#{name},#{studentnumber})
     </insert>

@@ -21,6 +21,12 @@ public interface UserDao {
      */
     User findStudent(User User);
 
+    /**
+     * 查询
+     * @param User
+     * @return
+     */
+    User findStudentThroughStudentNumber(User User);
 
     /**
      * 删除
