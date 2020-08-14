@@ -14,6 +14,6 @@ public class IndexController {
     @GetMapping("/")
     public String online(HttpSession session){
 
-        return "index.html";
+        return "";
     }
 }

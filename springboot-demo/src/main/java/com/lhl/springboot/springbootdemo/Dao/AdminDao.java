@@ -13,7 +13,7 @@ public interface AdminDao{
      * @return
      */
 
-    AdminUser checkStatus();
+    AdminUser checkStatus(String name);
 
     /**
      * 返回数据列表

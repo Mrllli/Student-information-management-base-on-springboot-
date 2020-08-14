@@ -21,7 +21,7 @@ public class AdminUserServiceImpl implements AdminUserService{
 
         int number = randomNumber();
         adminDao.updateLoginToken(name,number);
-        adminUser = adminDao.checkStatus();
+        adminUser = adminDao.checkStatus(name);
         String token = name + adminUser.getStatus() + randomString();
         return token;
 
