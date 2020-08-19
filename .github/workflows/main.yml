@@ -31,5 +31,32 @@ jobs:
     # Runs a single command using the runners shell
     - name: cd and run
       run: 
-        cd springboot-demo && mvn compile clean verify
+        cd springboot-demo && mvn compile clean verify && mvn package
 
+    - name: Deploy to aliyun server
+      run: |
+        docker login --username=${{ secrets.USERNAME }} --password ${{ secrets.PASSWORD }} registry.cn-hangzhou.aliyuncs.com
+        docker build . -t ${{ secrets.REGISTRY }}:$GITHUB_RUN_NUMBER
+        docker push ${{ secrets.REGISTRY }}:$GITHUB_RUN_NUMBER
+        docker tag $(docker images ${{ secrets.REGISTRY }}:$GITHUB_RUN_NUMBER -q) ${{ secrets.REGISTRY }}:latest
+        docker push ${{ secrets.REGISTRY }}:latest
+
+  pull-docker:
+    needs: [build]
+    name: Pull Docker
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          password: ${{ secrets.PWD }}
+          port: ${{ secrets.PORT }}
+          script: |
+            docker stop $(docker ps --filter ancestor=${{ secrets.REGISTRY }} -q)
+            docker rm -f $(docker ps -a --filter ancestor=${{ secrets.REGISTRY }}:latest -q)
+            docker rmi -f $(docker images  ${{ secrets.REGISTRY }}:latest -q)
+            docker login --username=${{ secrets.USERNAME }} --password ${{ secrets.PASSWORD }} registry.cn-hangzhou.aliyuncs.com
+            docker pull ${{ secrets.REGISTRY }}:latest
+            docker run -d -p 9033:9033 ${{ secrets.REGISTRY }}:latest

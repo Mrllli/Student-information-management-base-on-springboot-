@@ -1,7 +1,5 @@
 package com.lhl.springboot.springbootdemo.controller;
 
-import java.util.logging.Logger;
-
 import com.lhl.springboot.springbootdemo.Dao.AdminDao;
 import com.lhl.springboot.springbootdemo.entity.AdminUser;
 import com.lhl.springboot.springbootdemo.service.AdminUserService;
@@ -11,11 +9,9 @@ import com.lhl.springboot.springbootdemo.common.ResultCheck;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
+
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 
 import javax.annotation.Resource;
 /**
@@ -33,9 +29,13 @@ public class AdminController{
     AdminUserService adminUserService;
 
     @ApiOperation(value="register")
-    @PostMapping(value = "register")
-    public boolean Register(String name,String password){
-        adminDao.register(name, password);
+    @PostMapping(value = "/register")
+    public boolean register(@RequestBody AdminUser admin){
+        if (admin.getName()==null||admin.getPassword()==null)
+        {
+            return false;
+        }
+        adminDao.register(admin.getName(), admin.getPassword());
         return true;
     }
 
@@ -44,11 +44,11 @@ public class AdminController{
     @RequestMapping(value="/login",method=RequestMethod.POST)
     public Result login(@RequestBody AdminUser admin){
 
-        AdminUser adminuser = new AdminUser();
+        AdminUser adminuser;
         String name = admin.getName();
         String password = admin.getPassword();
 
-        adminuser = adminDao.checkStatus();
+        adminuser = adminDao.checkStatus(name);
         String nameCheck=adminuser.getName();
         String passwordCheck=adminuser.getPassword();
 
@@ -63,16 +63,20 @@ public class AdminController{
     }
     @ApiOperation(value ="check")
     @RequestMapping(value="/check",method=RequestMethod.POST)
-    public int check(@RequestBody ResultCheck res){
-        AdminUser adminuser = new AdminUser();
-        adminuser = adminDao.checkStatus();
-        int checkToken = adminuser.getStatus();
-        String token = checkToken+"";
-        if(res.getToken().contains(token)){
-            return 1;
+    public boolean check(@RequestBody AdminUser admin){
+        if (admin.getStatus()==null||admin.getStatus()==""||admin.getName()==""||admin.getName()==null)
+            return false;
+        AdminUser adminuser;
+        System.out.println(admin.getName());
+        adminuser = adminDao.checkStatus(admin.getName());
+        String checkToken = adminuser.getStatus();
+        System.out.println(admin.getName());
+        System.out.println(admin.getStatus().equals(checkToken));
+        if(admin.getStatus().equals(checkToken)){
+            return true;
 
         }else{
-            return 2;
+            return false;
         }
     }
 

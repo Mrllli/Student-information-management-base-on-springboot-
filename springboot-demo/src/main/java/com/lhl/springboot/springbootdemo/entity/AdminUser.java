@@ -3,7 +3,7 @@ package com.lhl.springboot.springbootdemo.entity;
 public class AdminUser{
     private String name;
     private String password;
-    private int status;
+    private String status;
 
     public String getName() {
         return name;
@@ -21,11 +21,11 @@ public class AdminUser{
         this.password = password;
     }
 
-    public int getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

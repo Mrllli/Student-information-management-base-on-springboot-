@@ -1,5 +1,8 @@
 package com.lhl.springboot.springbootdemo.common;
 
+/**
+ * @author lhl
+ */
 public class ResultCheck {
     private String token;
 

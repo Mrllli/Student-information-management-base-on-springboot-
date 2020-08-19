@@ -17,14 +17,10 @@ public class AdminUserServiceImpl implements AdminUserService{
 
     @Override
     public String updateToken(String name){
-        AdminUser adminUser = new AdminUser();
-
         int number = randomNumber();
-        adminDao.updateLoginToken(name,number);
-        adminUser = adminDao.checkStatus();
-        String token = name + adminUser.getStatus() + randomString();
+        String token = name + number + randomString();
+        adminDao.updateLoginToken(name,token);
         return token;
-
     }
 
     public int randomNumber(){

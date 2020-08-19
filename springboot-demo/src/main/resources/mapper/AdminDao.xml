@@ -9,7 +9,7 @@
     </resultMap>
 
     <select id="checkStatus" resultMap="AdminResult">
-        select name,password,status from tb_admin;
+        select name,password,status from tb_admin where name=#{name};
     </select>
 
     <update id="updateLoginToken">
